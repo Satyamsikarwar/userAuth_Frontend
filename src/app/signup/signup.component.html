@@ -1,0 +1,44 @@
+<div class="signup-container">
+    <h2>SignUp</h2>
+    <form #signupForm="ngForm" (ngSubmit)="signup()">
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required [(ngModel)]="username" #usernameInput="ngModel">
+            <div *ngIf="usernameInput.invalid && (usernameInput.dirty || usernameInput.touched)" class="error">
+                Username is required.
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required [(ngModel)]="email" #emailInput="ngModel"
+                pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}">
+            <div *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)" class="error">
+                <div *ngIf="emailInput.errors?.['required']">
+                    Email is required.
+                </div>
+                <div *ngIf="emailInput.errors?.['email'] && !emailInput.errors?.['required']">
+                    Please enter a valid email address.
+                </div>
+            </div>
+        </div>
+        <div *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)" class="error">
+            Email is not valid.
+        </div>
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required [(ngModel)]="name" #nameInput="ngModel">
+            <div *ngIf="nameInput.invalid && (nameInput.dirty || nameInput.touched)" class="error">
+                Name is required.
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required [(ngModel)]="password" #passwordInput="ngModel">
+            <div *ngIf="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)" class="error">
+                Password is required.
+            </div>
+        </div>
+        <button type="submit" [ngClass]="{'disabled': emailInput.invalid || signupForm.invalid }" [disabled]="emailInput.invalid || signupForm.invalid">SignUp</button>
+        <p>Already Registered: Go to login page <span (click)="goToLoginPage()">Click here</span> </p>
+    </form>
+</div>
